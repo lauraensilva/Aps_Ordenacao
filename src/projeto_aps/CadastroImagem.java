@@ -5,13 +5,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileInputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 public class CadastroImagem extends JFrame {
+    private Consultas consulta;
+    private Boolean cadastrado;
 
     private JTextField txtNomeImagem;
     private JTextField txtLocalizacao;
@@ -103,37 +100,16 @@ public class CadastroImagem extends JFrame {
 
     // Método para salvar a imagem no banco de dados
     private void salvarImagemNoBanco(String nome_imagem, String localizacao, File imagem) {
-        Connection conexao = null;
-        PreparedStatement statement = null;
+        // Estabelecendo a conexão com o banco de dados
+        String sql = "INSERT INTO imagens_aux (nome_imagem, localizacao, imagem) VALUES (?, ?, ?)";
+        consulta = new Consultas(sql, nome_imagem, localizacao, imagem, null, "IMAGEM");
 
-        try {
-            // Estabelecendo a conexão com o banco de dados
-            conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/aps_4p", "root", "Laura1020@");
-
-            String sql = "INSERT INTO imagens_aux (nome_imagem, localizacao, imagem) VALUES (?, ?, ?)";
-            statement = conexao.prepareStatement(sql);
-
-            statement.setString(1, nome_imagem);
-            statement.setString(2, localizacao.isEmpty() ? null : localizacao); // Permitir valor nulo para localização
-
-            // Converte a imagem para um InputStream e salva como BLOB
-            FileInputStream fis = new FileInputStream(imagem);
-            statement.setBinaryStream(3, fis, (int) imagem.length());
-
-            int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                JOptionPane.showMessageDialog(null, "Imagem carregada com sucesso!");
-            }
-        } catch (SQLException | java.io.IOException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erro ao salvar imagem: " + ex.getMessage());
-        } finally {
-            try {
-                if (statement != null) statement.close();
-                if (conexao != null) conexao.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
+        cadastrado = consulta.foiCadastrado();
+        
+        if (cadastrado) {
+            JOptionPane.showMessageDialog(null, "Imagem cadastrada com sucesso!");
+        } else {
+            JOptionPane.showConfirmDialog(null, "Não foi possível cadastrar a imagem!");
         }
     }
 
