@@ -22,7 +22,7 @@ public class BubbleSort {
         tempoExecucao = fim - inicio; // Calcula o tempo total de execução
 
         // Chama o método de impressão
-        String tipoOrdenacao = (colunaParaOrdenar == 1) ? "id_aleatorio" : "id_semialeatorio";
+        String tipoOrdenacao = (colunaParaOrdenar == 1) ? "id_aleatorio" : "id_semiordenado";
         OrdenacaoUtils.imprimirMatriz("Bubble Sort", tempoExecucao, quantidadeDados, tipoOrdenacao);
         return dados;
     }

@@ -9,7 +9,7 @@ public class Conexao {
 
     public Conexao() {
         try {
-            conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/aps_4p", "root", "");
+            conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/aps_4p", "root", "Laura1020@");
         } catch (SQLException e) {
             System.out.println("Erro ao conectar ao banco de dados: " + e.getMessage());
         }

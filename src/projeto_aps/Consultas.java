@@ -15,7 +15,7 @@ public class Consultas {
 
     Connection conexao = new Conexao().Conectar();
 
-    public Consultas(String sql, String str1, String str2, File imagem, String str3, String tipo) {
+    public Consultas(String sql, String str1, String str2, File imagem, String str3, String str4, String tipo) {
         try {
             statement = conexao.prepareStatement(sql);
 
@@ -37,6 +37,7 @@ public class Consultas {
                 statement.setString(1, str1);
                 statement.setString(2, str2);
                 statement.setString(3, str3);
+                statement.setString(4, str4);
 
                 int rowsInserted = statement.executeUpdate();
                 if (rowsInserted > 0) dadosCadastrados = true;

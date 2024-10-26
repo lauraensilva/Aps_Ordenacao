@@ -17,8 +17,9 @@ public class OrdenacaoUtils {
 
         String strTempoExecucao = String.format("%02d:%02d.%03d", minutos, segundos, milissegundos);
 
-        String sql = "INSERT INTO ordenacoes (metodo_ordenacao, tipo_ordenacao, tempo_execucao) VALUES (?, ?, ?)";
-        Consultas consulta = new Consultas(sql, metodoOrdenacao, tipoOrdenacao, null, strTempoExecucao, "ORDENACAO");
+        String quantRegistros = Integer.toString(quantidadeDados);
+        String sql = "INSERT INTO ordenacoes (metodo_ordenacao, tipo_ordenacao, tempo_execucao, quantidade_registros) VALUES (?, ?, ?, ?)";
+        Consultas consulta = new Consultas(sql, metodoOrdenacao, tipoOrdenacao, null, strTempoExecucao, quantRegistros, "ORDENACAO");
         Boolean cadastrados = consulta.dadosCadastrados();
 
         if (cadastrados) {

@@ -35,8 +35,8 @@ public class Login extends JFrame {
         cardLayout.show(panelContainer, "login");
 
         add(panelContainer);
-
         setVisible(true);
+
     }
 
     private JPanel telaLogin() {
@@ -60,8 +60,6 @@ public class Login extends JFrame {
 
                 if (usuariosCadastrados.containsKey(usuario) && usuariosCadastrados.get(usuario).equals(senha)) {
                     JOptionPane.showMessageDialog(null, "Login bem-sucedido!");
-
-                    // Chama a nova tela após o login
                     new TelaPrincipal();
                     dispose();  // Fecha a tela de login/cadastro
                 } else {

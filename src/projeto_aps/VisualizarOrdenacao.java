@@ -17,7 +17,7 @@ public class VisualizarOrdenacao {
         frame.setLocationRelativeTo(null);
 
         // Define as colunas da tabela
-        String[] colunas = {"ID", "ID Aleatório", "ID Semi-Aleatório", "Nome da Imagem", "Localização", "Data"};
+        String[] colunas = {"ID", "ID Aleatório", "ID Semiordenado", "Nome da Imagem", "Localização", "Data"};
 
         // Cria um modelo de tabela e define os dados
         DefaultTableModel model = new DefaultTableModel(dados, colunas);

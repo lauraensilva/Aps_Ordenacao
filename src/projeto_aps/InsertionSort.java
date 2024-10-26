@@ -24,7 +24,7 @@ public class InsertionSort {
         tempoExecucao = fim - inicio; // Calcula o tempo total de execução
 
         // Chama o método de impressão
-        String tipoOrdenacao = (colunaParaOrdenar == 1) ? "id_aleatorio" : "id_semialeatorio";
+        String tipoOrdenacao = (colunaParaOrdenar == 1) ? "id_aleatorio" : "id_semiordenado";
         OrdenacaoUtils.imprimirMatriz("Insertion Sort", tempoExecucao, quantidadeDados, tipoOrdenacao);
         return dados;
     }

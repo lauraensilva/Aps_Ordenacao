@@ -59,16 +59,15 @@ public class TelaPrincipal extends JFrame {
         buttonVoltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Ação para Voltar
-                JOptionPane.showMessageDialog(null, "Você clicou em Voltar!");
+                new Login();
+                dispose();
             }
         });
 
         buttonSair.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Ação para Sair
-                System.exit(0); // Fecha a aplicação
+                System.exit(0); 
             }
         });
 
@@ -86,17 +85,9 @@ public class TelaPrincipal extends JFrame {
         
         // Adicionando o painel à janela
         add(panel);
+        setVisible(true);
     }
     public static void main(String[] args) {
-        // Criação e exibição da tela
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-            	TelaPrincipal tela = new TelaPrincipal();
-                tela.setVisible(true);
-            }
-        });
+        new TelaPrincipal();
     }
-
-    
 }

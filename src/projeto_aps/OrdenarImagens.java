@@ -38,7 +38,7 @@ public class OrdenarImagens extends JFrame {
                 dados = pegarDados();
 
                 // Pergunta ao usuário por qual coluna ele deseja ordenar
-                String[] opcoes = { "id_aleatorio", "id_semialeatorio" };
+                String[] opcoes = { "id_aleatorio", "id_semiordenado" };
                 int escolha = JOptionPane.showOptionDialog(null, "Escolha a coluna para ordenar:", "Opção de Ordenação", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
 
                 // 0 = id_aleatorio, 1 = id_semialeatorio
@@ -65,7 +65,7 @@ public class OrdenarImagens extends JFrame {
                 dados = pegarDados();
 
                 // Pergunta ao usuário por qual coluna ele deseja ordenar
-                String[] opcoes = { "id_aleatorio", "id_semialeatorio" };
+                String[] opcoes = { "id_aleatorio", "id_semiordenado" };
                 int escolha = JOptionPane.showOptionDialog(null, "Escolha a coluna para ordenar:", "Opção de Ordenação", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
 
                 // 0 = id_aleatorio, 1 = id_semialeatorio
@@ -91,7 +91,7 @@ public class OrdenarImagens extends JFrame {
                 dados = pegarDados();
 
                 // Pergunta ao usuário por qual coluna ele deseja ordenar
-                String[] opcoes = { "id_aleatorio", "id_semialeatorio" };
+                String[] opcoes = { "id_aleatorio", "id_semiordenado" };
                 int escolha = JOptionPane.showOptionDialog(null, "Escolha a coluna para ordenar:", "Opção de Ordenação", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, opcoes, opcoes[0]);
 
                 // 0 = id_aleatorio, 1 = id_semialeatorio
@@ -145,8 +145,8 @@ public class OrdenarImagens extends JFrame {
     }
 
     private Object[][] pegarDados() {
-        String sql = "SELECT id, id_aleatorio, id_semialeatorio, nome_imagem, localizacao, data FROM imagens";
-        consulta = new Consultas(sql, null, null, null, null, "DADOS");
+        String sql = "SELECT id, id_aleatorio, id_semiordenado, nome_imagem, localizacao, data FROM imagens";
+        consulta = new Consultas(sql, null, null, null, null, null, "DADOS");
 
         try {
             resultSet = consulta.buscarDados();
@@ -162,7 +162,7 @@ public class OrdenarImagens extends JFrame {
             while (resultSet.next()) {
                 matriz[row][0] = resultSet.getInt("id");
                 matriz[row][1] = resultSet.getInt("id_aleatorio");
-                matriz[row][2] = resultSet.getInt("id_semialeatorio");
+                matriz[row][2] = resultSet.getInt("id_semiordenado");
                 matriz[row][3] = resultSet.getString("nome_imagem");
                 matriz[row][4] = resultSet.getString("localizacao");
                 matriz[row][5] = resultSet.getString("data");

@@ -1,4 +1,4 @@
-package projeto_aps;
+package projeto_aps; 
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +14,7 @@ public class CadastroImagem extends JFrame {
     private JTextField txtLocalizacao;
     private JLabel labelPreview;
     private File imagemSelecionada;
+    private JButton btnVoltar;
 
     public CadastroImagem() {
         setTitle("Cadastro de Imagens");
@@ -42,8 +43,8 @@ public class CadastroImagem extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                fileChooser.setDialogTitle("Selecionar uma imagem");  // Título da janela do explorador
-                fileChooser.setAcceptAllFileFilterUsed(false);  // Não aceitar todos os tipos de arquivos
+                fileChooser.setDialogTitle("Selecionar uma imagem");
+                fileChooser.setAcceptAllFileFilterUsed(false);
                 fileChooser.addChoosableFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Imagens", "jpg", "jpeg", "png", "bmp", "gif"));
 
                 int result = fileChooser.showOpenDialog(null);
@@ -51,7 +52,6 @@ public class CadastroImagem extends JFrame {
                 if (result == JFileChooser.APPROVE_OPTION) {
                     imagemSelecionada = fileChooser.getSelectedFile();
                     String imagePath = imagemSelecionada.getAbsolutePath();
-                    txtLocalizacao.setText(imagePath);  // Definir o caminho no campo de localização
                     ImageIcon imageIcon = new ImageIcon(new ImageIcon(imagePath).getImage().getScaledInstance(200, 200, Image.SCALE_DEFAULT));
                     labelPreview.setIcon(imageIcon);
                 }
@@ -70,6 +70,17 @@ public class CadastroImagem extends JFrame {
                 }
             }
         });
+        
+        btnVoltar = new JButton("Voltar");
+        btnVoltar.addActionListener(e -> {
+            new TelaPrincipal();
+            dispose(); 
+        });
+
+        // Painel para os botões de Upload e Voltar
+        JPanel panelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        panelBotoes.add(btnUpload);
+        panelBotoes.add(btnVoltar);
 
         // Layout
         gbc.insets = new Insets(5, 5, 5, 5);
@@ -93,7 +104,7 @@ public class CadastroImagem extends JFrame {
 
         gbc.gridx = 0; gbc.gridy = 4;
         gbc.gridwidth = 2;
-        add(btnUpload, gbc);
+        add(panelBotoes, gbc);  // Adiciona o painel de botões
 
         setVisible(true);
     }
@@ -102,7 +113,7 @@ public class CadastroImagem extends JFrame {
     private void salvarImagemNoBanco(String nome_imagem, String localizacao, File imagem) {
         // Estabelecendo a conexão com o banco de dados
         String sql = "INSERT INTO imagens_aux (nome_imagem, localizacao, imagem) VALUES (?, ?, ?)";
-        consulta = new Consultas(sql, nome_imagem, localizacao, imagem, null, "IMAGEM");
+        consulta = new Consultas(sql, nome_imagem, localizacao, imagem, null, null, "IMAGEM");
 
         cadastrado = consulta.foiCadastrado();
         
