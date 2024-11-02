@@ -112,7 +112,7 @@ public class CadastroImagem extends JFrame {
     // Método para salvar a imagem no banco de dados
     private void salvarImagemNoBanco(String nome_imagem, String localizacao, File imagem) {
         // Estabelecendo a conexão com o banco de dados
-        String sql = "INSERT INTO imagens_aux (nome_imagem, localizacao, imagem) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO imagens (nome_imagem, localizacao, imagem) VALUES (?, ?, ?)";
         consulta = new Consultas(sql, nome_imagem, localizacao, imagem, null, null, "IMAGEM");
 
         cadastrado = consulta.foiCadastrado();

@@ -46,6 +46,7 @@ public class TelaPrincipal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new OrdenarImagens();
+                dispose();
             }
         });
 
@@ -53,6 +54,7 @@ public class TelaPrincipal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new VisualizarRelatorios();
+                dispose();
             }
         });
         

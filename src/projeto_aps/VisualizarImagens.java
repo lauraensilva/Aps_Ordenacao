@@ -9,13 +9,14 @@ import java.sql.*;
 import java.io.*;
 
 public class VisualizarImagens extends JFrame {
+	private ResultSet resultSet;
     private JTable table;
     private DefaultTableModel tableModel;
-    private JTextField txtID;  // Campo de texto para ID
-    private JButton btnVisualizar; // Botão para visualizar
-    private JButton btnVoltar; // Botão para voltar
+    private JTextField txtID;  
+    private JButton btnVisualizar; 
+    private JButton btnVoltar; 
     private JButton btnLimpar;
-    private JLabel lblImagem; // Label para exibir a imagem
+    private JLabel lblImagem; 
 
     public VisualizarImagens() {
         setTitle("Imagens Cadastradas");
@@ -26,11 +27,12 @@ public class VisualizarImagens extends JFrame {
         // Painel superior para os componentes de ID e visualizar
         JPanel panelSuperior = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JLabel lblID = new JLabel("ID:");
-        txtID = new JTextField(10);  // Tamanho do campo de texto
+        txtID = new JTextField(10);  
         btnVisualizar = new JButton("Visualizar");
         btnVisualizar.addActionListener(e -> buscarImagemPorID());
         btnLimpar = new JButton("Limpar");
         btnLimpar.addActionListener(e -> {
+        	tableModel.setRowCount(0);
             txtID.setText("");
             carregarDadosDoBanco();
             lblImagem.setIcon(null); // Limpa a imagem exibida
@@ -52,7 +54,7 @@ public class VisualizarImagens extends JFrame {
             }
         };
         table = new JTable(tableModel);
-        table.setRowHeight(20); // Altura da linha para exibir imagens
+        table.setRowHeight(20); // Altura da linha
 
         // ScrollPane para a tabela
         JScrollPane scrollPane = new JScrollPane(table);
@@ -80,17 +82,10 @@ public class VisualizarImagens extends JFrame {
     }
 
     private void carregarDadosDoBanco() {
-        Connection conexao = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
+    	String sql = "SELECT id, id_aleatorio, id_semiordenado, nome_imagem, localizacao, data FROM imagens";
+    	Consultas consulta = new Consultas (sql, null, null, null, null, null, "DADOS");
+    	resultSet = consulta.buscarDados();
         try {
-            // Conectar ao banco de dados
-            conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/aps_4p", "root", "Laura1020@");
-            // Consulta SQL para buscar os dados
-            String sql = "SELECT id, id_aleatorio, id_semiordenado, nome_imagem, localizacao, data FROM imagens";
-            statement = conexao.prepareStatement(sql);
-            resultSet = statement.executeQuery();
-            // Processar os dados retornados
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 int id_aleatorio = resultSet.getInt("id_aleatorio");
@@ -105,13 +100,7 @@ public class VisualizarImagens extends JFrame {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao buscar dados: " + ex.getMessage());
         } finally {
-            try {
-                if (resultSet != null) resultSet.close();
-                if (statement != null) statement.close();
-                if (conexao != null) conexao.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
+        	consulta.fecharConexao(resultSet);
         }
     }
 
@@ -123,32 +112,19 @@ public class VisualizarImagens extends JFrame {
             return;
         }
 
-        int id;
-        try {
-            id = Integer.parseInt(idTexto);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "ID deve ser um número inteiro.");
-            return;
-        }
-
         // Limpar a tabela antes de carregar novos dados
         tableModel.setRowCount(0);
         lblImagem.setIcon(null); // Limpa a imagem exibida
-
-        Connection conexao = null;
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
+        
+        String sql = "SELECT id, id_aleatorio, id_semiordenado, nome_imagem, localizacao, data, imagem FROM imagens WHERE id = ?";
+    	Consultas consulta = new Consultas (sql, idTexto, null, null, null, null, "IMAGEM_ID");
+    	resultSet = consulta.buscarDados();
+    	
         try {
-            // Conectar ao banco de dados
-            conexao = DriverManager.getConnection("jdbc:mysql://localhost:3306/aps_4p", "root", "Laura1020@");
-            // Consulta SQL para buscar os dados do ID informado
-            String sql = "SELECT id, id_aleatorio, id_semiordenado, nome_imagem, localizacao, data, imagem FROM imagens WHERE id = ?";
-            statement = conexao.prepareStatement(sql);
-            statement.setInt(1, id);
-            resultSet = statement.executeQuery();
 
             // Processar os dados retornados
             if (resultSet.next()) {
+            	int id = resultSet.getInt("id");
                 int idAleatorio = resultSet.getInt("id_aleatorio");
                 int idSemiordenado = resultSet.getInt("id_semiordenado");
                 String nomeImagem = resultSet.getString("nome_imagem");
@@ -169,7 +145,7 @@ public class VisualizarImagens extends JFrame {
                 tableModel.addRow(new Object[]{id, idAleatorio, idSemiordenado, nomeImagem, localizacao, data});
                 lblImagem.setIcon(imagemIcon); // Exibe a imagem no JLabel
             } else {
-                JOptionPane.showMessageDialog(this, "Nenhuma imagem encontrada com o ID: " + id);
+                JOptionPane.showMessageDialog(this, "Nenhuma imagem encontrada com o ID");
                 lblImagem.setIcon(null); // Limpa a imagem exibida
             }
         } catch (SQLException ex) {
@@ -179,13 +155,7 @@ public class VisualizarImagens extends JFrame {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Erro ao carregar a imagem: " + ex.getMessage());
         } finally {
-            try {
-                if (resultSet != null) resultSet.close();
-                if (statement != null) statement.close();
-                if (conexao != null) conexao.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
+            consulta.fecharConexao(resultSet);
         }
     }
 

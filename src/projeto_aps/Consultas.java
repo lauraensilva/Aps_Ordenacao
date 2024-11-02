@@ -1,6 +1,7 @@
 package projeto_aps;
 
 import java.io.File;
+import javax.swing.JOptionPane;
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +13,7 @@ public class Consultas {
     private PreparedStatement statement;
     private Boolean imagemCadastrada, dadosCadastrados;
     private FileInputStream fis = null;
+    private int id;
 
     Connection conexao = new Conexao().Conectar();
 
@@ -48,11 +50,22 @@ public class Consultas {
                 statement = conexao.prepareStatement(sql);
                 resultSet = statement.executeQuery();
             }
+            
+            if (tipo.equals("IMAGEM_ID")) {
+            	try {
+            		id = Integer.parseInt(str1);
+            		statement.setInt(1, id);
+            		resultSet = statement.executeQuery();
+            	} catch (NumberFormatException e) {
+            		JOptionPane.showMessageDialog(null, "ID deve ser um número inteiro.");
+            		return;
+            	}
+            }
 
         } catch (SQLException | java.io.IOException ex) {
             System.out.println(ex.getMessage());
         } finally {
-            if (!tipo.equals("DADOS")) {
+            if (!tipo.equals("DADOS") && !tipo.equals("IMAGEM_ID")) {
                 try {
                     if (fis != null) fis.close();
                     if (statement != null) statement.close();
@@ -89,3 +102,5 @@ public class Consultas {
     }
 
 }
+
+
