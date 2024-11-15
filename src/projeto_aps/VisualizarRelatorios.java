@@ -15,7 +15,7 @@ public class VisualizarRelatorios extends JFrame {
 
     public VisualizarRelatorios() {
         setTitle("Histórico de Ordenações");
-        setSize(800, 600);
+        setSize(1600, 850);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 

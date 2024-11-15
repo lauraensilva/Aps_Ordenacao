@@ -18,7 +18,7 @@ public class CadastroImagem extends JFrame {
 
     public CadastroImagem() {
         setTitle("Cadastro de Imagens");
-        setSize(600, 400);
+        setSize(1600, 850);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new GridBagLayout());

@@ -8,7 +8,7 @@ public class TelaPrincipal extends JFrame {
 
     public TelaPrincipal() {
         setTitle("Menu Principal");
-        setSize(400, 300);
+        setSize(1600, 850);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 

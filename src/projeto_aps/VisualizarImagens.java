@@ -20,7 +20,7 @@ public class VisualizarImagens extends JFrame {
 
     public VisualizarImagens() {
         setTitle("Imagens Cadastradas");
-        setSize(800, 600);
+        setSize(1600, 850);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 

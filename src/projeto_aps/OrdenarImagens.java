@@ -16,7 +16,7 @@ public class OrdenarImagens extends JFrame {
     public OrdenarImagens() {
         // Configurações da janela
         setTitle("Tela de Ordenação");
-        setSize(400, 300);
+        setSize(1600, 850);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new GridLayout(6, 1));

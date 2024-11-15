@@ -22,7 +22,7 @@ public class Login extends JFrame {
         usuariosCadastrados = new HashMap<>();
 
         setTitle("Login e Cadastro de Usuários");
-        setSize(400, 300);
+        setSize(1600, 850);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 

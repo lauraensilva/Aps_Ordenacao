@@ -13,7 +13,7 @@ public class VisualizarOrdenacao {
         // Configura a janela
         frame = new JFrame("Dados da Ordenação");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        frame.setSize(600, 400);
+        frame.setSize(1600, 850);
         frame.setLocationRelativeTo(null);
 
         // Define as colunas da tabela
